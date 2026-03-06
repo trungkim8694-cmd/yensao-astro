@@ -1,0 +1,53 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('zh-blog');
+const categories = ["全部", "燕窝做法", "真假辨别", "营养价值"];
+---
+
+<MainLayout title="燕窝百科" lang="zh">
+  <section class="py-16 px-6 max-w-7xl mx-auto text-left">
+    <h1 class="text-4xl font-serif font-bold text-center mb-12">燕窝知识与百科</h1>
+
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      {categories.map(cat => (
+        <button data-category={cat} class="zh-blog-filter-btn px-6 py-2 rounded-xl border border-stone-200 text-sm font-bold transition-all">
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {posts.map(post => (
+        <article class="zh-blog-item group" data-category={post.data.category}>
+          <a href={`/zh/blog/${post.slug}`}>
+            <div class="overflow-hidden rounded-2xl mb-4 h-56 shadow-sm bg-stone-100">
+              <img src={post.data.image} class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+            </div>
+            <h2 class="text-xl font-bold group-hover:text-amber-700 transition">{post.data.title}</h2>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <script>
+    const btns = document.querySelectorAll('.zh-blog-filter-btn');
+    const items = document.querySelectorAll('.zh-blog-item');
+
+    function filter(cat) {
+      btns.forEach(b => {
+        const isSelected = b.getAttribute('data-category') === cat;
+        b.classList.toggle('bg-amber-700', isSelected);
+        b.classList.toggle('text-white', isSelected);
+      });
+      items.forEach(item => {
+        const itemCat = item.getAttribute('data-category');
+        (item as HTMLElement).style.display = (cat === "全部" || itemCat === cat) ? "block" : "none";
+      });
+    }
+    btns.forEach(btn => btn.addEventListener('click', () => filter(btn.getAttribute('data-category'))));
+    filter("全部");
+  </script>
+</MainLayout>

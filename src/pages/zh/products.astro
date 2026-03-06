@@ -1,0 +1,83 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Lấy đúng sản phẩm từ bộ sưu tập tiếng Trung
+const allProducts = await getCollection('zh-products'); 
+const categories = ["全部", "原味燕盏", "精制燕窝", "即食燕窝", "燕窝礼盒"];
+---
+
+<MainLayout title="燕窝产品目录" lang="zh">
+  <section class="py-16 px-6 max-w-7xl mx-auto text-left">
+    <h1 class="text-4xl font-serif font-bold text-center mb-12 text-stone-800">优质产品系列</h1>
+
+    <div class="flex flex-wrap justify-center gap-4 mb-16" id="zh-category-filters">
+      {categories.map((cat) => (
+        <button 
+          data-category={cat}
+          class="zh-filter-btn px-6 py-2 rounded-full border border-stone-200 transition-all font-medium text-sm shadow-sm"
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="zh-product-grid">
+      {allProducts.map(product => (
+        <div class="zh-product-card group" data-category={product.data.category}>
+          <a href={`/zh/products/${product.slug}`}>
+            <div class="relative h-72 overflow-hidden rounded-3xl bg-stone-100 mb-6">
+              <img src={product.data.image} alt={product.data.title} class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+              <div class="absolute top-4 left-4 bg-amber-700 text-white text-[10px] px-3 py-1 rounded-full font-bold">
+                {product.data.category}
+              </div>
+            </div>
+            <h3 class="text-xl font-serif font-bold text-stone-800 mb-4 group-hover:text-amber-700 transition">{product.data.title}</h3>
+            <div class="flex justify-between items-center border-t border-stone-50 pt-4">
+              <span class="text-lg font-bold text-stone-900">{product.data.price}</span>
+              <span class="text-sm font-bold bg-stone-900 text-white px-4 py-2 rounded-xl">立即咨询</span>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <script>
+    // Logic xử lý lọc sản phẩm
+    const filterBtns = document.querySelectorAll('.zh-filter-btn');
+    const productCards = document.querySelectorAll('.zh-product-card');
+
+    function applyFilter(targetCategory) {
+      // 1. Cập nhật màu sắc nút bấm
+      filterBtns.forEach(btn => {
+        if (btn.getAttribute('data-category') === targetCategory) {
+          btn.classList.add('bg-amber-700', 'text-white', 'border-amber-700');
+        } else {
+          btn.classList.remove('bg-amber-700', 'text-white', 'border-amber-700');
+        }
+      });
+
+      // 2. Ẩn/Hiện sản phẩm
+      productCards.forEach(card => {
+        const itemCat = card.getAttribute('data-category');
+        if (targetCategory === "全部" || itemCat === targetCategory) {
+          (card as HTMLElement).style.display = "block";
+        } else {
+          (card as HTMLElement).style.display = "none";
+        }
+      });
+    }
+
+    // Gán sự kiện cho từng nút
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-category');
+        applyFilter(cat);
+      });
+    });
+
+    // Chạy mặc định khi load trang
+    applyFilter("全部");
+  </script>
+</MainLayout>

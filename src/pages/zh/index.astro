@@ -1,13 +1,15 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
+import MainLayout from '../../layouts/MainLayout.astro';
 import { getCollection } from 'astro:content';
-const featuredProducts = await getCollection('products');
+
+// Lấy bộ sưu tập sản phẩm tiếng Trung
+const featuredProducts = await getCollection('zh-products');
 ---
 
-<MainLayout title="Trang Chủ - Yến Sào Thịnh Vượng">
+<MainLayout title="首页 - 越南盛旺燕窝" lang="zh">
   
   <section class="relative h-[80vh] min-h-[500px] flex items-center justify-center text-center overflow-hidden">
-    <div class="absolute inset-0 z-0" id="carousel-container">
+    <div class="absolute inset-0 z-0" id="zh-carousel-container">
       <div class="carousel-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-100" style="background-image: url('/banner1.jpg'), url('https://images.unsplash.com/photo-1621244290492-9459381667d4?q=80&w=2070');"></div>
       <div class="carousel-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: url('/banner2.jpg'), url('https://images.unsplash.com/photo-1596701062351-8c2c14d1fcd0?q=80&w=1974');"></div>
       <div class="carousel-slide absolute inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0" style="background-image: url('/banner3.jpg'), url('https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=2070');"></div>
@@ -16,34 +18,33 @@ const featuredProducts = await getCollection('products');
 
     <div class="relative z-10 px-6 max-w-4xl">
       <h1 class="text-4xl md:text-7xl font-serif font-bold text-white mb-6 drop-shadow-lg italic">
-        Yến Sào Thịnh Vượng
+        越南盛旺燕窝
       </h1>
-      <p class="text-lg md:text-xl text-stone-200 mb-10 drop-shadow-md">Tinh hoa Đất Tổ - Sức khỏe vững bền</p>
+      <p class="text-lg md:text-xl text-stone-200 mb-10 drop-shadow-md">传承富寿省精髓 - 守护您的健康</p>
       <div class="flex flex-col md:flex-row justify-center gap-4">
-        <a href="/lien-he" class="bg-amber-700 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-amber-800 transition uppercase text-sm tracking-widest">Hợp tác đại lý</a>
-        <a href="/blog" class="bg-white/10 backdrop-blur-md text-white border border-white/30 px-10 py-4 rounded-full font-bold hover:bg-white/20 transition uppercase text-sm tracking-widest">Nhật ký nhà yến</a>
+        <a href="/zh/contact" class="bg-amber-700 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-amber-800 transition uppercase text-sm tracking-widest">批发咨询</a>
+        <a href="/zh/blog" class="bg-white/10 backdrop-blur-md text-white border border-white/30 px-10 py-4 rounded-full font-bold hover:bg-white/20 transition uppercase text-sm tracking-widest">燕窝百科</a>
       </div>
     </div>
   </section>
-  
-  
+
   <section class="py-20 bg-stone-100 overflow-hidden">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex justify-between items-end mb-12">
         <div>
-          <h2 class="text-sm uppercase tracking-[0.3em] text-amber-700 font-bold mb-3">BST Sản Phẩm</h2>
-          <p class="text-4xl md:text-5xl font-serif font-bold text-stone-800">Sản phẩm của chúng tôi</p>
+          <h2 class="text-sm uppercase tracking-[0.3em] text-amber-700 font-bold mb-3">优质产品系列</h2>
+          <p class="text-4xl md:text-5xl font-serif font-bold text-stone-800">我们的产品</p>
         </div>
-        <a href="/san-pham" class="hidden md:block text-stone-800 font-bold border-b-2 border-amber-700 pb-1 hover:text-amber-700 transition">
-          Xem chi tiết các sản phẩm →
+        <a href="/zh/products" class="hidden md:block text-stone-800 font-bold border-b-2 border-amber-700 pb-1 hover:text-amber-700 transition">
+          查看所有产品 →
         </a>
       </div>
 
       <div class="relative group">
-        <div id="product-slider" class="flex transition-transform duration-700 ease-in-out gap-6">
+        <div id="product-slider-zh" class="flex transition-transform duration-700 ease-in-out gap-6">
           {featuredProducts.map((product) => (
             <div class="min-w-[calc(100%-1.5rem)] md:min-w-[calc(33.333%-1rem)] bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
-              <a href={`/san-pham/${product.slug}`} class="block">
+              <a href={`/zh/products/${product.slug}`} class="block">
                 <div class="h-64 overflow-hidden">
                   <img src={product.data.image} alt={product.data.title} class="w-full h-full object-cover hover:scale-110 transition duration-700" />
                 </div>
@@ -52,7 +53,7 @@ const featuredProducts = await getCollection('products');
                   <h3 class="text-xl font-serif font-bold text-stone-800 mt-2 mb-4 line-clamp-1">{product.data.title}</h3>
                   <div class="flex justify-between items-center">
                     <span class="text-lg font-bold text-stone-900">{product.data.price}</span>
-                    <span class="text-sm font-medium text-stone-400">Chi tiết →</span>
+                    <span class="text-sm font-medium text-stone-400">详情 →</span>
                   </div>
                 </div>
               </a>
@@ -62,7 +63,7 @@ const featuredProducts = await getCollection('products');
       </div>
 
       <div class="mt-10 text-center md:hidden">
-        <a href="/san-pham" class="text-amber-700 font-bold">Xem chi tiết các sản phẩm →</a>
+        <a href="/zh/products" class="text-amber-700 font-bold">查看所有产品 →</a>
       </div>
     </div>
   </section>
@@ -70,8 +71,8 @@ const featuredProducts = await getCollection('products');
   <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-sm uppercase tracking-[0.3em] text-amber-700 font-bold mb-3">Giá trị cốt lõi</h2>
-        <p class="text-4xl font-serif font-bold text-stone-800">Tại sao chọn Thịnh Vượng?</p>
+        <h2 class="text-sm uppercase tracking-[0.3em] text-amber-700 font-bold mb-3">核心价值</h2>
+        <p class="text-4xl font-serif font-bold text-stone-800">为什么选择盛旺？</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
@@ -81,8 +82,8 @@ const featuredProducts = await getCollection('products');
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-stone-800 mb-3">100% Nguyên Chất</h3>
-          <p class="text-stone-500 text-sm leading-relaxed">Cam kết yến sào khai thác trực tiếp, không pha trộn tạp chất hay hóa chất tẩy trắng.</p>
+          <h3 class="text-xl font-bold text-stone-800 mb-3">100% 纯天然</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">严选自家燕屋采摘，绝不掺杂、无化学漂白。</p>
         </div>
 
         <div class="text-center group">
@@ -91,8 +92,8 @@ const featuredProducts = await getCollection('products');
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.642.321a6 6 0 01-3.86.517l-2.388-.477a2 2 0 00-1.022.547l-1.168 1.168a2 2 0 01-1.788.549l-1.012-.202a2 2 0 00-2.223 2.223l.202 1.012a2 2 0 01-.549 1.788l-1.168 1.168A2 2 0 014.5 21H19.5a2 2 0 011.5-1.5z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-stone-800 mb-3">Làm Sạch Thủ Công</h3>
-          <p class="text-stone-500 text-sm leading-relaxed">Quy trình nhặt lông tỉ mỉ bởi những thợ lành nghề tại Hà Trì, giữ trọn vi chất quý giá.</p>
+          <h3 class="text-xl font-bold text-stone-800 mb-3">传统手工挑毛</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">哈池匠人精细手工清洗，保留燕窝最完整的营养成分。</p>
         </div>
 
         <div class="text-center group">
@@ -101,8 +102,8 @@ const featuredProducts = await getCollection('products');
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-stone-800 mb-3">Tươi Mới Mỗi Ngày</h3>
-          <p class="text-stone-500 text-sm leading-relaxed">Yến chưng sẵn chỉ được chế biến khi có đơn hàng, đảm bảo độ tươi và dinh dưỡng cao nhất.</p>
+          <h3 class="text-xl font-bold text-stone-800 mb-3">每日新鲜制作</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">即食燕窝订单式现炖，确保每一口都新鲜、营养、美味。</p>
         </div>
 
         <div class="text-center group">
@@ -111,8 +112,8 @@ const featuredProducts = await getCollection('products');
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 10h18M7 15h1m4 0h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
             </svg>
           </div>
-          <h3 class="text-xl font-bold text-stone-800 mb-3">Giá Gốc Tại Xưởng</h3>
-          <p class="text-stone-500 text-sm leading-relaxed">Không qua trung gian, mang lại mức giá tốt nhất cho khách hàng lẻ và đối tác sỉ.</p>
+          <h3 class="text-xl font-bold text-stone-800 mb-3">厂家直销价格</h3>
+          <p class="text-stone-500 text-sm leading-relaxed">自有工厂生产，无中间商赚差价，为您提供最具竞争力的批发价。</p>
         </div>
       </div>
     </div>
@@ -121,35 +122,35 @@ const featuredProducts = await getCollection('products');
   <section class="py-24 bg-stone-100 px-6">
     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
       <div class="md:w-1/2">
-        <img src="https://images.unsplash.com/photo-1590005176489-db237146e1c1?q=80&w=2024" alt="Nhà Yến" class="rounded-3xl shadow-2xl" />
+        <img src="https://images.unsplash.com/photo-1590005176489-db237146e1c1?q=80&w=2024" alt="燕屋展示" class="rounded-3xl shadow-2xl" />
       </div>
       <div class="md:w-1/2 space-y-6 text-left">
-        <h2 class="text-4xl font-serif font-bold text-stone-800 leading-tight">Nhật Ký Từ <br/><span class="text-amber-700 underline underline-offset-8">Vùng Đất Tổ</span></h2>
-        <p class="text-stone-600 leading-relaxed">Hành trình mang tổ yến sạch từ xưởng tại Hà Trì đến tay khách hàng là một quá trình đầy sự tận tâm. Chúng tôi minh bạch mọi khâu khai thác và chế biến.</p>
-        <a href="/blog" class="inline-block border-b-2 border-amber-700 pb-1 font-bold text-amber-700 hover:text-amber-800 transition">Xem chi tiết các bài viết →</a>
+        <h2 class="text-4xl font-serif font-bold text-stone-800 leading-tight">来自 <br/><span class="text-amber-700 underline underline-offset-8">燕屋基地的日志</span></h2>
+        <p class="text-stone-600 leading-relaxed">从哈池工厂的精细加工到每一份产品的交付，我们始终坚持透明化。每一盏燕窝都承载着我们的匠心与诚信。</p>
+        <a href="/zh/blog" class="inline-block border-b-2 border-amber-700 pb-1 font-bold text-amber-700 hover:text-amber-800 transition">查看更多文章 →</a>
       </div>
     </div>
   </section>
     
-  <sectssion class="py-20 px-6 bg-white">
+  <section class="py-20 px-6 bg-white">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
       <div class="text-center p-8 rounded-2xl hover:bg-stone-50 transition">
         <div class="text-amber-700 text-4xl mb-4 italic font-serif">01</div>
-        <h3 class="text-xl font-bold mb-4 font-serif">Nguồn gốc Hà Trì</h3>
-        <p class="text-stone-500 text-sm leading-relaxed">Khai thác trực tiếp từ hệ thống nhà yến hiện đại tại Vĩnh Tường, Phú Thọ.</p>
+        <h3 class="text-xl font-bold mb-4 font-serif">源自哈池</h3>
+        <p class="text-stone-500 text-sm leading-relaxed">直接产自越南富寿省永祥县现代化的燕屋系统。</p>
       </div>
       <div class="text-center p-8 rounded-2xl hover:bg-stone-50 transition border-x border-stone-100">
         <div class="text-amber-700 text-4xl mb-4 italic font-serif">02</div>
-        <h3 class="text-xl font-bold mb-4 font-serif">Sạch 100% Thủ Công</h3>
-        <p class="text-stone-500 text-sm leading-relaxed">Quy trình nhặt lông tỉ mỉ, không hóa chất, giữ trọn vẹn vi chất quý giá.</p>
+        <h3 class="text-xl font-bold mb-4 font-serif">100% 手工纯净</h3>
+        <p class="text-stone-500 text-sm leading-relaxed">严谨的手工挑毛工艺，保留最天然的微量元素。</p>
       </div>
       <div class="text-center p-8 rounded-2xl hover:bg-stone-50 transition">
         <div class="text-amber-700 text-4xl mb-4 italic font-serif">03</div>
-        <h3 class="text-xl font-bold mb-4 font-serif">Uy Tín Thịnh Vượng</h3>
-        <p class="text-stone-500 text-sm leading-relaxed">Cam kết bồi thường 200% nếu phát hiện yến giả, yến pha trộn tạp chất.</p>
+        <h3 class="text-xl font-bold mb-4 font-serif">信誉保证</h3>
+        <p class="text-stone-500 text-sm leading-relaxed">承诺若发现掺假或非纯天然燕窝，将进行200%赔偿。</p>
       </div>
     </div>
-  </sectssion>
+  </section>
 
   <script>
     let current = 0;
@@ -164,40 +165,37 @@ const featuredProducts = await getCollection('products');
   </script>
 
   <script>
-    let currentIndex = 0;
-    const slider = document.getElementById('product-slider');
-    const items = slider?.querySelectorAll('.min-w-\\[calc\\(100\\%-1\\.5rem\\)\\]'); // Selector lấy các item
-    const totalItems = items?.length || 0;
+    let currentIndexZh = 0;
+    const sliderZh = document.getElementById('product-slider-zh');
     
-    // Tính số lượng item hiển thị dựa trên độ rộng màn hình
-    function getVisibleItems() {
+    function getVisibleItemsZh() {
       return window.innerWidth >= 768 ? 3 : 1;
     }
 
-    function moveSlider() {
-      if (!slider) return;
-      const visibleItems = getVisibleItems();
-      currentIndex++;
+    function moveSliderZh() {
+      if (!sliderZh) return;
+      const items = sliderZh.querySelectorAll('.min-w-\\[calc\\(100\\%-1\\.5rem\\)\\]');
+      const totalItems = items.length;
+      const visibleItems = getVisibleItemsZh();
+      
+      currentIndexZh++;
 
-      // Nếu đi quá số lượng sản phẩm, quay lại từ đầu
-      if (currentIndex > totalItems - visibleItems) {
-        currentIndex = 0;
+      if (currentIndexZh > totalItems - visibleItems) {
+        currentIndexZh = 0;
       }
 
-      const gap = 24; // gap-6 tương đương 24px
-      const itemWidth = (slider.offsetWidth - (gap * (visibleItems - 1))) / visibleItems;
-      const moveX = currentIndex * (itemWidth + gap);
+      const gap = 24;
+      const itemWidth = (sliderZh.offsetWidth - (gap * (visibleItems - 1))) / visibleItems;
+      const moveX = currentIndexZh * (itemWidth + gap);
 
-      slider.style.transform = `translateX(-${moveX}px)`;
+      sliderZh.style.transform = `translateX(-${moveX}px)`;
     }
 
-    // Tự động xoay vòng mỗi 3 giây
-    setInterval(moveSlider, 3000);
+    setInterval(moveSliderZh, 3000);
 
-    // Xử lý khi resize màn hình để không bị lệch slider
     window.addEventListener('resize', () => {
-      currentIndex = 0;
-      if (slider) slider.style.transform = `translateX(0)`;
+      currentIndexZh = 0;
+      if (sliderZh) sliderZh.style.transform = `translateX(0)`;
     });
   </script>
 </MainLayout>

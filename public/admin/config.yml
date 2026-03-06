@@ -1,0 +1,82 @@
+backend:
+  name: git-gateway
+  branch: main # Hoặc branch bạn đang sử dụng
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # --- MỤC SẢN PHẨM (TIẾNG VIỆT) ---
+  - name: "products_vi"
+    label: "Sản phẩm (VN)"
+    folder: "src/content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề", name: "title", widget: "string" }
+      - {
+          label: "Danh mục",
+          name: "category",
+          widget: "select",
+          options: ["Yến tinh chế", "Yến sơ chế", "Nước yến", "Quà tặng"],
+        }
+      - { label: "Giá", name: "price", widget: "string" }
+      - { label: "Trọng lượng", name: "weight", widget: "string" }
+      - { label: "Thành phần", name: "ingredients", widget: "string" }
+      - { label: "Cách dùng", name: "usage", widget: "text" }
+      - { label: "Chứng nhận", name: "certification", widget: "string" }
+      - { label: "Hình ảnh", name: "image", widget: "image" }
+      - { label: "Mô tả ngắn", name: "description", widget: "text" }
+      - {
+          label: "Đánh giá (1-5)",
+          name: "rating",
+          widget: "number",
+          default: 5,
+        }
+      - { label: "Mã SKU", name: "sku", widget: "string" }
+      - { label: "Nội dung chi tiết", name: "body", widget: "markdown" }
+
+  # --- MỤC SẢN PHẨM (TIẾNG TRUNG) ---
+  - name: "products_zh"
+    label: "Sản phẩm (ZH)"
+    folder: "src/content/zh-products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề (中文)", name: "title", widget: "string" }
+      - { label: "分类", name: "category", widget: "string" }
+      - { label: "价格", name: "price", widget: "string" }
+      - { label: "重量", name: "weight", widget: "string" }
+      - { label: "成分", name: "ingredients", widget: "string" }
+      - { label: "用法", name: "usage", widget: "text" }
+      - { label: "认证", name: "certification", widget: "string" }
+      - { label: "图片", name: "image", widget: "image" }
+      - { label: "简短描述", name: "description", widget: "text" }
+      - { label: "SKU", name: "sku", widget: "string" }
+      - { label: "内容详情", name: "body", widget: "markdown" }
+
+  # --- MỤC KIẾN THỨC (TIẾNG VIỆT) ---
+  - name: "blog_vi"
+    label: "Kiến thức (VN)"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Tiêu đề bài viết", name: "title", widget: "string" }
+      - { label: "Ngày đăng", name: "pubDate", widget: "datetime" }
+      - { label: "Mô tả", name: "description", widget: "string" }
+      - { label: "Ảnh bìa", name: "image", widget: "image" }
+      - { label: "Nội dung bài viết", name: "body", widget: "markdown" }
+
+  # --- MỤC KIẾN THỨC (TIẾNG TRUNG) ---
+  - name: "blog_zh"
+    label: "Kiến thức (ZH)"
+    folder: "src/content/zh-blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "文章标题", name: "title", widget: "string" }
+      - { label: "发布日期", name: "pubDate", widget: "datetime" }
+      - { label: "描述", name: "description", widget: "string" }
+      - { label: "封面图片", name: "image", widget: "image" }
+      - { label: "文章内容", name: "body", widget: "markdown" }

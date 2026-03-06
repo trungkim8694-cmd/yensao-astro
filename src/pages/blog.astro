@@ -1,0 +1,26 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Lấy tất cả bài viết từ thư mục src/content/blog
+const posts = await getCollection('blog');
+---
+
+<MainLayout title="Kiến thức Yến Sào">
+  <section class="py-20 px-6 max-w-7xl mx-auto">
+    <h1 class="text-4xl font-serif font-bold text-center mb-16">Nhật Ký Nhà Yến Hà Trì</h1>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {posts.map(post => (
+        <article class="bg-white rounded-2xl shadow-sm overflow-hidden border border-stone-100">
+          <img src={post.data.image} alt={post.data.title} class="w-full h-48 object-cover" />
+          <div class="p-6">
+            <h2 class="text-xl font-bold mb-2">{post.data.title}</h2>
+            <p class="text-stone-500 text-sm mb-4">{post.data.description}</p>
+            <a href={`/blog/${post.slug}`} class="text-amber-700 font-bold text-sm">Đọc tiếp →</a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+</MainLayout>

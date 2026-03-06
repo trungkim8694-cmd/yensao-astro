@@ -1,0 +1,73 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout title="Liên Hệ Hợp Tác Sỉ">
+  <section class="py-12 md:py-24 px-6 md:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+      
+      <div class="space-y-8">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-serif font-bold text-stone-800 mb-6">Kết Nối Thịnh Vượng</h1>
+          <p class="text-lg text-stone-600 leading-relaxed">
+            Chúng tôi luôn sẵn sàng lắng nghe và đồng hành cùng các đối tác muốn đưa đặc sản <strong>Yến Sào Phú Thọ</strong> vươn xa. Hãy liên hệ để nhận chính sách giá sỉ tốt nhất 2026.
+          </p>
+        </div>
+
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="p-3 bg-amber-100 rounded-lg text-amber-700">📍</div>
+            <div>
+              <h4 class="font-bold text-stone-800">Địa chỉ xưởng</h4>
+              <p class="text-stone-600">Hà Trì - Vĩnh Tường - Phú Thọ</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4">
+            <div class="p-3 bg-amber-100 rounded-lg text-amber-700">📞</div>
+            <div>
+              <h4 class="font-bold text-stone-800">Hotline / Zalo sỉ</h4>
+              <p class="text-stone-600">0973 080 694</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="p-3 bg-amber-100 rounded-lg text-amber-700">✉️</div>
+            <div>
+              <h4 class="font-bold text-stone-800">Email</h4>
+              <p class="text-stone-600">info@yensaothinhvuong.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 md:p-10 rounded-3xl shadow-xl border border-stone-100">
+        <h3 class="text-2xl font-serif font-bold text-stone-800 mb-6">Đăng ký nhận báo giá</h3>
+        <form class="space-y-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label class="block text-sm font-semibold text-stone-600 mb-2">Họ tên</label>
+              <input type="text" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:ring-2 focus:ring-amber-500 outline-none transition" placeholder="Nguyễn Văn A" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-stone-600 mb-2">Số điện thoại</label>
+              <input type="tel" class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:ring-2 focus:ring-amber-500 outline-none transition" placeholder="09xx..." />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-stone-600 mb-2">Nội dung quan tâm</label>
+            <select class="w-full px-4 py-3 rounded-xl border border-stone-200 focus:ring-2 focus:ring-amber-500 outline-none transition">
+              <option>Nhận báo giá sỉ</option>
+              <option>Đăng ký làm đại lý</option>
+              <option>Mua quà tặng doanh nghiệp</option>
+            </select>
+          </div>
+          <button class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-4 rounded-xl shadow-lg transition duration-300">
+            Gửi yêu cầu ngay
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+</MainLayout>
