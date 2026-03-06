@@ -1,16 +1,18 @@
 ---
 // src/pages/admin.astro
 ---
+
 <!doctype html>
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quản trị Yến Sào Thịnh Vượng</title>
-    
+
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
-    
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
@@ -25,42 +27,69 @@
 
       // --- MẪU PREVIEW SẢN PHẨM ---
       const ProductPreview = createClass({
-        render: function() {
+        render: function () {
           const entry = this.props.entry;
-          const title = entry.getIn(['data', 'title']);
-          const price = entry.getIn(['data', 'price']);
-          const image = this.props.getAsset(entry.getIn(['data', 'image']));
-          const body = this.props.widgetFor('body');
+          const title = entry.getIn(["data", "title"]);
+          const price = entry.getIn(["data", "price"]);
+          const image = this.props.getAsset(entry.getIn(["data", "image"]));
+          const body = this.props.widgetFor("body");
 
-          return h('div', { className: "p-8 bg-stone-50" },
-            h('div', { className: "max-w-2xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden" },
-              h('img', { src: image ? image.toString() : '', className: "w-full h-64 object-cover" }),
-              h('div', { className: "p-6" },
-                h('h1', { className: "text-2xl font-bold text-stone-800" }, title),
-                h('p', { className: "text-amber-700 font-bold text-xl my-2" }, price),
-                h('div', { className: "prose prose-stone mt-4" }, body)
-              )
-            )
+          return h(
+            "div",
+            { className: "p-8 bg-stone-50" },
+            h(
+              "div",
+              {
+                className:
+                  "max-w-2xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden",
+              },
+              h("img", {
+                src: image ? image.toString() : "",
+                className: "w-full h-64 object-cover",
+              }),
+              h(
+                "div",
+                { className: "p-6" },
+                h(
+                  "h1",
+                  { className: "text-2xl font-bold text-stone-800" },
+                  title,
+                ),
+                h(
+                  "p",
+                  { className: "text-amber-700 font-bold text-xl my-2" },
+                  price,
+                ),
+                h("div", { className: "prose prose-stone mt-4" }, body),
+              ),
+            ),
           );
-        }
+        },
       });
 
       // --- MẪU PREVIEW BÀI VIẾT BLOG ---
       const BlogPreview = createClass({
-        render: function() {
+        render: function () {
           const entry = this.props.entry;
-          const title = entry.getIn(['data', 'title']);
-          const image = this.props.getAsset(entry.getIn(['data', 'image']));
-          const body = this.props.widgetFor('body');
+          const title = entry.getIn(["data", "title"]);
+          const image = this.props.getAsset(entry.getIn(["data", "image"]));
+          const body = this.props.widgetFor("body");
 
-          return h('div', { className: "p-8 bg-white" },
-            h('article', { className: "max-w-xl mx-auto" },
-              h('h1', { className: "text-3xl font-bold mb-4" }, title),
-              h('img', { src: image ? image.toString() : '', className: "w-full rounded-xl mb-6" }),
-              h('div', { className: "prose prose-amber" }, body)
-            )
+          return h(
+            "div",
+            { className: "p-8 bg-white" },
+            h(
+              "article",
+              { className: "max-w-xl mx-auto" },
+              h("h1", { className: "text-3xl font-bold mb-4" }, title),
+              h("img", {
+                src: image ? image.toString() : "",
+                className: "w-full rounded-xl mb-6",
+              }),
+              h("div", { className: "prose prose-amber" }, body),
+            ),
           );
-        }
+        },
       });
 
       // Đăng ký các mẫu preview với các Collection trong config.yml
@@ -68,6 +97,34 @@
       CMS.registerPreviewTemplate("products_zh", ProductPreview);
       CMS.registerPreviewTemplate("blog_vi", BlogPreview);
       CMS.registerPreviewTemplate("blog_zh", BlogPreview);
+    </script>
+
+    <script is:inline>
+      // Kiểm tra nếu có token trong URL (mời hoặc đặt lại mật khẩu)
+      document.addEventListener("DOMContentLoaded", () => {
+        const hash = document.location.hash;
+        if (
+          hash &&
+          (hash.includes("invite_token") || hash.includes("recovery_token"))
+        ) {
+          // Kích hoạt widget Netlify Identity để hiện form đặt mật khẩu
+          const netlifyIdentity = window.netlifyIdentity;
+          if (netlifyIdentity) {
+            netlifyIdentity.open();
+          }
+        }
+      });
+
+      // Tự động đóng widget sau khi đăng nhập thành công
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", (user) => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
     </script>
   </body>
 </html>
