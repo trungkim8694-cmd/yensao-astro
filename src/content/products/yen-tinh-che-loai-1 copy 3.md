@@ -13,9 +13,11 @@ sku: "YSTV-TC01"
 ---
 
 ### Chi tiết sản phẩm
+
 Yến tinh chế loại 1 của Thịnh Vượng được tuyển chọn từ những tổ yến già, ít lông nhất tại nhà yến Hà Trì. Qua bàn tay khéo léo của thợ lành nghề, từng sợi yến được giữ nguyên vẹn, không vỡ vụn.
 
 ### Tại sao nên chọn YSTV?
-* **An toàn:** Đạt chứng nhận HACCP quốc tế.
-* **Nguyên chất:** Không tẩy trắng, không pha trộn mủ trôm hay đường.
-* **Dinh dưỡng:** Hàm lượng Protein cao trên 55%.
+
+- **An toàn:** Đạt chứng nhận HACCP quốc tế.
+- **Nguyên chất:** Không tẩy trắng, không pha trộn mủ trôm hay đường.
+- **Dinh dưỡng:** Hàm lượng Protein cao trên 55%.

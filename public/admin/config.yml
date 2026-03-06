@@ -44,16 +44,31 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Tiêu đề (中文)", name: "title", widget: "string" }
-      - { label: "分类", name: "category", widget: "string" }
-      - { label: "价格", name: "price", widget: "string" }
-      - { label: "重量", name: "weight", widget: "string" }
-      - { label: "成分", name: "ingredients", widget: "string" }
-      - { label: "用法", name: "usage", widget: "text" }
-      - { label: "认证", name: "certification", widget: "string" }
-      - { label: "图片", name: "image", widget: "image" }
-      - { label: "简短描述", name: "description", widget: "text" }
-      - { label: "SKU", name: "sku", widget: "string" }
-      - { label: "内容详情", name: "body", widget: "markdown" }
+      - {
+          label: "Danh mục (分类)",
+          name: "category",
+          widget: "select",
+          options: ["原味燕盏", "精制燕窝", "即食燕窝", "燕窝礼盒"],
+        }
+      - { label: "Giá (价格)", name: "price", widget: "string" }
+      - { label: "Trọng lượng (重量)", name: "weight", widget: "string" }
+      - { label: "Thành phần (成分)", name: "ingredients", widget: "string" }
+      - { label: "Cách dùng (用法)", name: "usage", widget: "text" }
+      - { label: "Chứng nhận (认证)", name: "certification", widget: "string" }
+      - { label: "Hình ảnh (图片)", name: "image", widget: "image" }
+      - { label: "Mô tả ngắn (简短描述)", name: "description", widget: "text" }
+      - {
+          label: "Đánh giá (1-5) (评价)",
+          name: "rating",
+          widget: "number",
+          default: 5,
+        }
+      - { label: "Mã SKU", name: "sku", widget: "string" }
+      - {
+          label: "Nội dung chi tiết (内容详情)",
+          name: "body",
+          widget: "markdown",
+        }
 
   # --- MỤC KIẾN THỨC (TIẾNG VIỆT) ---
   - name: "blog_vi"
@@ -63,6 +78,12 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Tiêu đề bài viết", name: "title", widget: "string" }
+      - {
+          label: "Danh mục",
+          name: "category",
+          widget: "select",
+          options: ["Cách chưng yến", "Phân biệt yến", "Giá trị dinh dưỡng"],
+        }
       - { label: "Ngày đăng", name: "pubDate", widget: "datetime" }
       - { label: "Mô tả", name: "description", widget: "string" }
       - { label: "Ảnh bìa", name: "image", widget: "image" }
@@ -75,8 +96,22 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "文章标题", name: "title", widget: "string" }
-      - { label: "发布日期", name: "pubDate", widget: "datetime" }
-      - { label: "描述", name: "description", widget: "string" }
-      - { label: "封面图片", name: "image", widget: "image" }
-      - { label: "文章内容", name: "body", widget: "markdown" }
+      - {
+          label: "Tiêu đề bài viết (文章标题)",
+          name: "title",
+          widget: "string",
+        }
+      - {
+          label: "Danh mục (分类)",
+          name: "category",
+          widget: "select",
+          options: ["燕窝做法", "真假辨别", "营养价值"],
+        }
+      - { label: "Ngày đăng (发布日期)", name: "pubDate", widget: "datetime" }
+      - { label: "Mô tả (描述)", name: "description", widget: "string" }
+      - { label: "Ảnh bìa (封面图片)", name: "image", widget: "image" }
+      - {
+          label: "Nội dung bài viết (文章内容)",
+          name: "body",
+          widget: "markdown",
+        }

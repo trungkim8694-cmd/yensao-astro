@@ -1,26 +1,121 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import { getCollection } from 'astro:content';
+import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
 
-// Lấy tất cả bài viết từ thư mục src/content/blog
-const posts = await getCollection('blog');
+// 1. Lấy tất cả bài viết từ thư mục src/content/blog
+const posts = await getCollection("blog");
+
+// 2. Định nghĩa danh mục tiếng Việt (Phải khớp với options trong config.yml)
+const categories = [
+  "Tất cả",
+  "Cách chưng yến",
+  "Phân biệt yến",
+  "Giá trị dinh dưỡng",
+];
 ---
 
 <MainLayout title="Kiến thức Yến Sào">
   <section class="py-20 px-6 max-w-7xl mx-auto">
-    <h1 class="text-4xl font-serif font-bold text-center mb-16">Nhật Ký Nhà Yến Hà Trì</h1>
-    
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-      {posts.map(post => (
-        <article class="bg-white rounded-2xl shadow-sm overflow-hidden border border-stone-100">
-          <img src={post.data.image} alt={post.data.title} class="w-full h-48 object-cover" />
-          <div class="p-6">
-            <h2 class="text-xl font-bold mb-2">{post.data.title}</h2>
-            <p class="text-stone-500 text-sm mb-4">{post.data.description}</p>
-            <a href={`/blog/${post.slug}`} class="text-amber-700 font-bold text-sm">Đọc tiếp →</a>
-          </div>
-        </article>
-      ))}
+    <h1 class="text-4xl font-serif font-bold text-center mb-12 text-stone-800">
+      Nhật Ký Nhà Yến Hà Trì
+    </h1>
+
+    <div class="flex flex-wrap justify-center gap-4 mb-16" id="blog-filters">
+      {
+        categories.map((cat) => (
+          <button
+            data-category={cat}
+            class="blog-filter-btn px-6 py-2 rounded-full border border-stone-200 transition-all font-medium text-sm shadow-sm"
+          >
+            {cat}
+          </button>
+        ))
+      }
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10" id="blog-grid">
+      {
+        posts.map((post) => (
+          <article
+            class="blog-post-card bg-white rounded-3xl shadow-sm overflow-hidden border border-stone-100 hover:shadow-xl transition-all duration-500"
+            data-category={post.data.category}
+          >
+            <div class="relative h-56 overflow-hidden">
+              <img
+                src={post.data.image}
+                alt={post.data.title}
+                class="w-full h-full object-cover transition duration-700 hover:scale-110"
+              />
+              <div class="absolute top-4 left-4 bg-amber-700 text-white text-[10px] px-3 py-1 rounded-full font-bold uppercase">
+                {post.data.category}
+              </div>
+            </div>
+            <div class="p-8">
+              <h2 class="text-xl font-serif font-bold mb-3 text-stone-800 line-clamp-2">
+                {post.data.title}
+              </h2>
+              <p class="text-stone-500 text-sm mb-6 line-clamp-3 leading-relaxed">
+                {post.data.description}
+              </p>
+              <a
+                href={`/blog/${post.slug}`}
+                class="inline-flex items-center text-amber-700 font-bold text-sm hover:gap-2 transition-all"
+              >
+                Đọc tiếp <span class="ml-1">→</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
+
+  <script>
+    // 5. Logic xử lý lọc bài viết
+    const filterBtns = document.querySelectorAll(".blog-filter-btn");
+    const postCards = document.querySelectorAll(".blog-post-card");
+
+    function applyBlogFilter(targetCategory: string) {
+      // Cập nhật trạng thái nút bấm
+      filterBtns.forEach((btn) => {
+        if (btn.getAttribute("data-category") === targetCategory) {
+          btn.classList.add("bg-amber-700", "text-white", "border-amber-700");
+        } else {
+          btn.classList.remove(
+            "bg-amber-700",
+            "text-white",
+            "border-amber-700",
+          );
+        }
+      });
+
+      // Ẩn/Hiện bài viết kèm hiệu ứng
+      postCards.forEach((card) => {
+        const itemCat = card.getAttribute("data-category");
+        if (targetCategory === "Tất cả" || itemCat === targetCategory) {
+          (card as HTMLElement).style.display = "block";
+          card.animate(
+            [
+              { opacity: 0, transform: "translateY(10px)" },
+              { opacity: 1, transform: "translateY(0)" },
+            ],
+            { duration: 400 },
+          );
+        } else {
+          (card as HTMLElement).style.display = "none";
+        }
+      });
+    }
+
+    // Gán sự kiện cho từng nút
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const selectedCat = btn.getAttribute("data-category") || "Tất cả";
+        applyBlogFilter(selectedCat);
+      });
+    });
+
+    // Chạy mặc định khi load trang
+    applyBlogFilter("Tất cả");
+  </script>
 </MainLayout>

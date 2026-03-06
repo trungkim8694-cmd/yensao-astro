@@ -1,46 +1,77 @@
 ---
-import '../styles/global.css';
-import LanguagePicker from '../components/LanguagePicker.astro';
+import "../styles/global.css";
+import LanguagePicker from "../components/LanguagePicker.astro";
 const { title, lang = "vi" } = Astro.props;
 
+// Lấy đường dẫn hiện tại để xử lý trạng thái Active Menu
+const pathname = new URL(Astro.url).pathname;
+
+// Hàm kiểm tra xem một link có đang active hay không
+const isActive = (path: string) => {
+  if (path === "/" || path === "/zh") {
+    return pathname === path;
+  }
+  return pathname.startsWith(path);
+};
+
 // Logic chuyển đổi nội dung
-const content = lang === "vi" 
-  ? { 
-      menu: {
-        home: "Trang chủ", products: "Sản phẩm", blog: "Kiến thức", contact: "Liên hệ sỉ",
-        href: { home: "/", products: "/san-pham", blog: "/blog", contact: "/lien-he" }
-      },
-      footer: {
-        about: "<strong>Yến Sào Thịnh Vượng (YSTV)</strong> - Tinh hoa yến sào từ hệ thống nhà yến trải dài từ <strong>Khánh Hòa</strong> đến <strong>Tây Ninh</strong>. Chúng tôi tự hào mang đến sản phẩm 100% nguyên chất, được chế biến tận tâm tại trụ sở chính Đất Tổ Phú Thọ.",
-        linksTitle: "Liên kết",
-        infoTitle: "Thông tin",
-        address: "Trụ sở: Hà Trì - Vĩnh Tường - Phú Thọ",
-        hotline: "Hotline: 0973 080 694",
-        certTitle: "Chứng nhận",
-        certDesc: "Sản phẩm đạt tiêu chuẩn vệ sinh an toàn thực phẩm và kiểm định hàm lượng vi chất định kỳ.",
-        iso: "ISO",
-        safety: "Vệ Sinh",
-        rights: "© 2026 Công ty CP YSTV. Tất cả quyền được bảo lưu."
+const content =
+  lang === "vi"
+    ? {
+        menu: {
+          home: "Trang chủ",
+          products: "Sản phẩm",
+          blog: "Kiến thức",
+          contact: "Liên hệ sỉ",
+          href: {
+            home: "/",
+            products: "/san-pham",
+            blog: "/blog",
+            contact: "/lien-he",
+          },
+        },
+        footer: {
+          about:
+            "<strong>Yến Sào Thịnh Vượng (YSTV)</strong> - Tinh hoa yến sào từ hệ thống nhà yến trải dài từ <strong>Khánh Hòa</strong> đến <strong>Tây Ninh</strong>. Chúng tôi tự hào mang đến sản phẩm 100% nguyên chất, được chế biến tận tâm tại trụ sở chính Đất Tổ Phú Thọ.",
+          linksTitle: "Liên kết",
+          infoTitle: "Thông tin",
+          address: "Trụ sở: Hà Trì - Vĩnh Tường - Phú Thọ",
+          hotline: "Hotline: 0973 080 694",
+          certTitle: "Chứng nhận",
+          certDesc:
+            "Sản phẩm đạt tiêu chuẩn vệ sinh an toàn thực phẩm và kiểm định hàm lượng vi chất định kỳ.",
+          iso: "ISO",
+          safety: "Vệ Sinh",
+          rights: "© 2026 Công ty CP YSTV. Tất cả quyền được bảo lưu.",
+        },
       }
-    }
-  : { 
-      menu: {
-        home: "首页", products: "燕窝产品", blog: "燕窝百科", contact: "批发咨询",
-        href: { home: "/zh", products: "/zh/products", blog: "/zh/blog", contact: "/zh/contact" }
-      },
-      footer: {
-        about: "<strong>盛旺燕窝 (YSTV)</strong> - 源自<strong>庆和省</strong>至<strong>西宁省</strong>的优质燕屋系统。我们自豪地提供100%纯天然燕窝，并在富寿省总部精心加工制作。",
-        linksTitle: "快速链接",
-        infoTitle: "联系信息",
-        address: "总部：富寿省 - 永祥县 - 哈池",
-        hotline: "热线: 0973 080 694",
-        certTitle: "质量认证",
-        certDesc: "产品符合食品安全卫生标准，并定期进行微量元素检测。",
-        iso: "ISO认证",
-        safety: "食品安全",
-        rights: "© 2026 盛旺股份公司。版权所有。"
-      }
-    };
+    : {
+        menu: {
+          home: "首页",
+          products: "燕窝产品",
+          blog: "燕窝百科",
+          contact: "批发咨询",
+          href: {
+            home: "/zh",
+            products: "/zh/products",
+            blog: "/zh/blog",
+            contact: "/zh/contact",
+          },
+        },
+        footer: {
+          about:
+            "<strong>盛旺燕窝 (YSTV)</strong> - 源自<strong>庆和省</strong>至<strong>西宁省</strong> की优质燕屋系统。我们自豪地提供100%纯天然燕窝，并在富寿省总部精心加工制作。",
+          linksTitle: "快速链接",
+          infoTitle: "联系信息",
+          address: "总部：富寿省 - 永祥县 - 哈池",
+          hotline: "热线: 0973 080 694",
+          certTitle: "质量认证",
+          certDesc: "产品符合食品安全卫生标准，并定期进行微量元素检测。",
+          iso: "ISO认证",
+          safety: "食品安全",
+          rights: "© 2026 盛旺股份公司。版权所有。",
+        },
+      };
 
 const { menu, footer } = content;
 ---
@@ -51,44 +82,103 @@ const { menu, footer } = content;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} | Yến Sào Thịnh Vượng</title>
   </head>
-  <body class="bg-stone-50 text-stone-900 font-sans antialiased flex flex-col min-h-screen">
-    
+  <body
+    class="bg-stone-50 text-stone-900 font-sans antialiased flex flex-col min-h-screen"
+  >
     <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50">
       <div class="max-w-7xl mx-auto px-4 md:px-8">
         <div class="flex justify-between items-center h-20 md:h-24">
-          
           <a href={menu.href.home} class="flex-shrink-0">
-            <img src="/logo.png" alt="Yến Sào Thịnh Vượng" class="h-10 md:h-16 w-auto" onerror="this.src='https://placehold.co/200x80?text=LOGO+YSTV'"/>
+            <img
+              src="/logo.png"
+              alt="Yến Sào Thịnh Vượng"
+              class="h-10 md:h-16 w-auto"
+              onerror="this.src='https://placehold.co/200x80?text=LOGO+YSTV'"
+            />
           </a>
 
-          <div class="hidden lg:flex space-x-8 font-medium items-center text-sm uppercase tracking-wider">
-            <a href={menu.href.home} class="hover:text-amber-700 transition">{menu.home}</a>
-            <a href={menu.href.products} class="hover:text-amber-700 transition">{menu.products}</a>
-            <a href={menu.href.blog} class="hover:text-amber-700 transition">{menu.blog}</a>
-            <a href={menu.href.contact} class="hover:text-amber-700 transition">{menu.contact}</a>
+          <div
+            class="hidden lg:flex space-x-8 font-medium items-center text-sm uppercase tracking-wider"
+          >
+            <a
+              href={menu.href.home}
+              class={`transition hover:text-amber-700 ${isActive(menu.href.home) ? "text-amber-700 font-bold" : ""}`}
+              >{menu.home}</a
+            >
+            <a
+              href={menu.href.products}
+              class={`transition hover:text-amber-700 ${isActive(menu.href.products) ? "text-amber-700 font-bold" : ""}`}
+              >{menu.products}</a
+            >
+            <a
+              href={menu.href.blog}
+              class={`transition hover:text-amber-700 ${isActive(menu.href.blog) ? "text-amber-700 font-bold" : ""}`}
+              >{menu.blog}</a
+            >
+            <a
+              href={menu.href.contact}
+              class={`transition hover:text-amber-700 ${isActive(menu.href.contact) ? "text-amber-700 font-bold" : ""}`}
+              >{menu.contact}</a
+            >
             <LanguagePicker />
-            <a href="tel:0973080694" class="bg-amber-700 text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-amber-800 transition">
+            <a
+              href="tel:0973080694"
+              class="bg-amber-700 text-white px-6 py-2 rounded-full font-bold shadow-md hover:bg-amber-800 transition"
+            >
               0973 080 694
             </a>
           </div>
 
           <div class="flex items-center gap-4 lg:hidden">
-            <LanguagePicker /> <button id="menu-btn" class="p-2 text-stone-600 focus:outline-none">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            <LanguagePicker />
+            <button id="menu-btn" class="p-2 text-stone-600 focus:outline-none">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-7 w-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16m-7 6h7"></path>
               </svg>
             </button>
           </div>
         </div>
       </div>
 
-      <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-stone-100 px-6 py-8 space-y-6 shadow-2xl absolute w-full">
-        <a href={menu.href.home} class="block font-bold text-xl">{menu.home}</a>
-        <a href={menu.href.products} class="block font-bold text-xl">{menu.products}</a>
-        <a href={menu.href.blog} class="block font-bold text-xl">{menu.blog}</a>
-        <a href={menu.href.contact} class="block font-bold text-xl text-amber-700">{menu.contact}</a>
+      <div
+        id="mobile-menu"
+        class="hidden lg:hidden bg-white border-t border-stone-100 px-6 py-8 space-y-6 shadow-2xl absolute w-full left-0"
+      >
+        <a
+          href={menu.href.home}
+          class={`block font-bold text-xl ${isActive(menu.href.home) ? "text-amber-700" : ""}`}
+          >{menu.home}</a
+        >
+        <a
+          href={menu.href.products}
+          class={`block font-bold text-xl ${isActive(menu.href.products) ? "text-amber-700" : ""}`}
+          >{menu.products}</a
+        >
+        <a
+          href={menu.href.blog}
+          class={`block font-bold text-xl ${isActive(menu.href.blog) ? "text-amber-700" : ""}`}
+          >{menu.blog}</a
+        >
+        <a
+          href={menu.href.contact}
+          class={`block font-bold text-xl ${isActive(menu.href.contact) ? "text-amber-700" : ""}`}
+          >{menu.contact}</a
+        >
         <div class="pt-6 border-t border-stone-100">
-          <a href="tel:0973080694" class="inline-block bg-amber-700 text-white px-6 py-3 rounded-lg font-bold w-full text-center">
+          <a
+            href="tel:0973080694"
+            class="inline-block bg-amber-700 text-white px-6 py-3 rounded-lg font-bold w-full text-center"
+          >
             0973 080 694
           </a>
         </div>
@@ -99,25 +189,57 @@ const { menu, footer } = content;
       <slot />
     </main>
 
-    <footer class="bg-stone-900 text-stone-400 py-16 px-6 md:px-12 mt-auto text-left">
+    <footer
+      class="bg-stone-900 text-stone-400 py-16 px-6 md:px-12 mt-auto text-left"
+    >
       <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
         <div class="space-y-6">
-          <img src="/logo.png" alt="Logo YSTV" class="h-12 w-auto brightness-0 invert" />
-          <p class="text-sm leading-relaxed" set:html={footer.about}></p>
+          <img
+            src="/logo.png"
+            alt="Logo YSTV"
+            class="h-12 w-auto brightness-0 invert"
+          />
+          <p class="text-sm leading-relaxed" set:html={footer.about} />
         </div>
 
         <div>
-          <h4 class="text-white font-bold uppercase tracking-widest mb-6 italic">{footer.linksTitle}</h4>
+          <h4
+            class="text-white font-bold uppercase tracking-widest mb-6 italic"
+          >
+            {footer.linksTitle}
+          </h4>
           <ul class="space-y-4 text-sm">
-            <li><a href={menu.href.home} class="hover:text-amber-500 transition">{menu.home}</a></li>
-            <li><a href={menu.href.products} class="hover:text-amber-500 transition">{menu.products}</a></li>
-            <li><a href={menu.href.blog} class="hover:text-amber-500 transition">{menu.blog}</a></li>
-            <li><a href={menu.href.contact} class="hover:text-amber-500 transition">{menu.contact}</a></li>
+            <li>
+              <a href={menu.href.home} class="hover:text-amber-500 transition"
+                >{menu.home}</a
+              >
+            </li>
+            <li>
+              <a
+                href={menu.href.products}
+                class="hover:text-amber-500 transition">{menu.products}</a
+              >
+            </li>
+            <li>
+              <a href={menu.href.blog} class="hover:text-amber-500 transition"
+                >{menu.blog}</a
+              >
+            </li>
+            <li>
+              <a
+                href={menu.href.contact}
+                class="hover:text-amber-500 transition">{menu.contact}</a
+              >
+            </li>
           </ul>
         </div>
 
         <div>
-          <h4 class="text-white font-bold uppercase tracking-widest mb-6 italic">{footer.infoTitle}</h4>
+          <h4
+            class="text-white font-bold uppercase tracking-widest mb-6 italic"
+          >
+            {footer.infoTitle}
+          </h4>
           <ul class="space-y-4 text-sm">
             <li class="flex items-start gap-3">
               <span class="text-amber-600">📍</span>
@@ -135,27 +257,41 @@ const { menu, footer } = content;
         </div>
 
         <div>
-          <h4 class="text-white font-bold uppercase tracking-widest mb-6 italic">{footer.certTitle}</h4>
+          <h4
+            class="text-white font-bold uppercase tracking-widest mb-6 italic"
+          >
+            {footer.certTitle}
+          </h4>
           <p class="text-sm leading-relaxed mb-4">
             {footer.certDesc}
           </p>
           <div class="flex gap-4">
-            <div class="w-10 h-10 bg-stone-800 rounded flex items-center justify-center text-[8px]">{footer.iso}</div>
-            <div class="w-10 h-10 bg-stone-800 rounded flex items-center justify-center text-[8px]">{footer.safety}</div>
+            <div
+              class="w-10 h-10 bg-stone-800 rounded flex items-center justify-center text-[8px]"
+            >
+              {footer.iso}
+            </div>
+            <div
+              class="w-10 h-10 bg-stone-800 rounded flex items-center justify-center text-[8px]"
+            >
+              {footer.safety}
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="max-w-7xl mx-auto border-t border-stone-800 mt-16 pt-8 text-center text-xs">
+      <div
+        class="max-w-7xl mx-auto border-t border-stone-800 mt-16 pt-8 text-center text-xs"
+      >
         <p>{footer.rights}</p>
       </div>
     </footer>
 
     <script>
-      const btn = document.getElementById('menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      btn?.addEventListener('click', () => {
-        mobileMenu?.classList.toggle('hidden');
+      const btn = document.getElementById("menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      btn?.addEventListener("click", () => {
+        mobileMenu?.classList.toggle("hidden");
       });
     </script>
   </body>

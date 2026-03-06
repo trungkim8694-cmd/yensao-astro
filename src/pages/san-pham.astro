@@ -1,76 +1,121 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
-import { getCollection } from 'astro:content';
+import MainLayout from "../layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
 
-const allProducts = await getCollection('products');
-const categories = ["Tất cả", "Yến tổ sơ chế", "Yến tinh chế", "Yến chưng sẵn", "Set quà tặng"];
+const allProducts = await getCollection("products");
+const categories = [
+  "Tất cả",
+  "Yến tổ sơ chế",
+  "Yến tinh chế",
+  "Yến chưng sẵn",
+  "Set quà tặng",
+];
 ---
 
 <MainLayout title="Danh mục Sản phẩm Cao Cấp">
   <section class="py-16 px-6 max-w-7xl mx-auto">
-    <h1 class="text-4xl md:text-5xl font-serif font-bold text-stone-800 text-center mb-4">Sản Phẩm Ra Khơi</h1>
-    <p class="text-center text-stone-500 mb-12 italic">Tinh túy từ thiên nhiên, tận tâm từ thợ nghề Hà Trì</p>
+    <h1
+      class="text-4xl md:text-5xl font-serif font-bold text-stone-800 text-center mb-4"
+    >
+      Sản Phẩm Ra Khơi
+    </h1>
+    <p class="text-center text-stone-500 mb-12 italic">
+      Tinh túy từ thiên nhiên, tận tâm từ thợ nghề Hà Trì
+    </p>
 
     <div class="flex flex-wrap justify-center gap-4 mb-16" id="filter-buttons">
-      {categories.map((cat) => (
-        <button 
-          data-category={cat}
-          class="filter-btn px-6 py-2 rounded-full border border-stone-200 transition font-medium text-sm shadow-sm"
-        >
-          {cat}
-        </button>
-      ))}
+      {
+        categories.map((cat) => (
+          <button
+            data-category={cat}
+            class="filter-btn px-6 py-2 rounded-full border border-stone-200 transition font-medium text-sm shadow-sm"
+          >
+            {cat}
+          </button>
+        ))
+      }
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="product-grid">
-      {allProducts.map(product => (
-        <div class="product-item group bg-white rounded-3xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-2xl transition-all duration-500" data-cat={product.data.category}>
-          <a href={`/san-pham/${product.slug}`}>
-            <div class="relative h-72 overflow-hidden bg-stone-100">
-              <img src={product.data.image} alt={product.data.title} class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
-              <div class="absolute top-4 left-4 bg-amber-700 text-white text-[10px] px-3 py-1 rounded-full uppercase tracking-widest font-bold">
-                {product.data.category}
+    <div
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+      id="product-grid"
+    >
+      {
+        allProducts.map((product) => (
+          <div
+            class="product-item group bg-white rounded-3xl overflow-hidden border border-stone-100 shadow-sm hover:shadow-2xl transition-all duration-500"
+            data-cat={product.data.category}
+          >
+            <a href={`/san-pham/${product.slug}`}>
+              <div class="relative h-72 overflow-hidden bg-stone-100">
+                <img
+                  src={product.data.image}
+                  alt={product.data.title}
+                  class="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                />
+                <div class="absolute top-4 left-4 bg-amber-700 text-white text-[10px] px-3 py-1 rounded-full uppercase tracking-widest font-bold">
+                  {product.data.category}
+                </div>
               </div>
-            </div>
-            <div class="p-8">
-              <div class="flex text-amber-500 mb-2">
-                {"★".repeat(product.data.rating)}
+              <div class="p-8">
+                <div class="flex text-amber-500 mb-2">
+                  {"★".repeat(product.data.rating || 0)}
+                </div>
+                <h3 class="text-xl font-serif font-bold text-stone-800 mb-3 group-hover:text-amber-700 transition">
+                  {product.data.title}
+                </h3>
+                <div class="flex justify-between items-center mt-6 border-t border-stone-50 pt-4">
+                  <span class="text-xl font-bold text-stone-900">
+                    {product.data.price}
+                  </span>
+                  <span class="text-sm text-stone-400 font-medium">
+                    🛒 Mua ngay
+                  </span>
+                </div>
               </div>
-              <h3 class="text-xl font-serif font-bold text-stone-800 mb-3 group-hover:text-amber-700 transition">{product.data.title}</h3>
-              <div class="flex justify-between items-center mt-6 border-t border-stone-50 pt-4">
-                <span class="text-xl font-bold text-stone-900">{product.data.price}</span>
-                <span class="text-sm text-stone-400 font-medium">🛒 Mua ngay</span>
-              </div>
-            </div>
-          </a>
-        </div>
-      ))}
+            </a>
+          </div>
+        ))
+      }
     </div>
   </section>
 
   <script>
-    const buttons = document.querySelectorAll('.filter-btn');
-    const items = document.querySelectorAll('.product-item');
+    const buttons = document.querySelectorAll(".filter-btn");
+    // Tìm dòng khai báo items và sửa thành:
+    const items = document.querySelectorAll(
+      ".product-item",
+    ) as NodeListOf<HTMLElement>;
 
-    function filterProducts(category) {
+    function filterProducts(category: string) {
       // 1. Đổi màu nút bấm
-      buttons.forEach(btn => {
-        if (btn.getAttribute('data-category') === category) {
-          btn.classList.add('bg-amber-700', 'text-white', 'border-amber-700');
-          btn.classList.remove('hover:bg-amber-700', 'hover:text-white');
+      buttons.forEach((btn) => {
+        if (btn.getAttribute("data-category") === category) {
+          btn.classList.add("bg-amber-700", "text-white", "border-amber-700");
+          btn.classList.remove("hover:bg-amber-700", "hover:text-white");
         } else {
-          btn.classList.remove('bg-amber-700', 'text-white', 'border-amber-700');
-          btn.classList.add('hover:bg-amber-700', 'hover:text-white');
+          btn.classList.remove(
+            "bg-amber-700",
+            "text-white",
+            "border-amber-700",
+          );
+          btn.classList.add("hover:bg-amber-700", "hover:text-white");
         }
       });
 
       // 2. Lọc sản phẩm
-      items.forEach(item => {
-        const itemCat = item.getAttribute('data-cat');
+      items.forEach((item) => {
+        const itemCat = item.getAttribute("data-cat");
         if (category === "Tất cả" || itemCat === category) {
           item.style.display = "block";
           // Thêm hiệu ứng hiện ra mượt mà
-          item.animate([{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 400 });
+          item.animate(
+            [
+              { opacity: 0, transform: "translateY(10px)" },
+              { opacity: 1, transform: "translateY(0)" },
+            ],
+            { duration: 400 },
+          );
         } else {
           item.style.display = "none";
         }
@@ -78,9 +123,10 @@ const categories = ["Tất cả", "Yến tổ sơ chế", "Yến tinh chế", "Y
     }
 
     // Gán sự kiện click cho nút
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const cat = btn.getAttribute('data-category');
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Sửa dòng 124-126 thành:
+        const cat = btn.getAttribute("data-category") || "Tất cả";
         filterProducts(cat);
       });
     });
