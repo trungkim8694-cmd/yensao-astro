@@ -8,22 +8,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quản trị Yến Sào Thịnh Vượng</title>
-
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
-
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-    ></script>
+    <script
+      is:inline
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"
+    ></script>
 
     <script is:inline>
-      // Đảm bảo window.CMS đã sẵn sàng
-      const CMS = window.CMS;
-      const { createClass, h } = window;
+      // Đợi CMS tải xong mới đăng ký Preview
+      window.CMS.registerPreviewStyle("https://cdn.tailwindcss.com");
 
-      // Nhúng CSS của website vào phần Preview để hiển thị đúng font/màu
-      CMS.registerPreviewStyle("https://cdn.tailwindcss.com");
+      const { createClass, h } = window;
 
       // --- MẪU PREVIEW SẢN PHẨM ---
       const ProductPreview = createClass({
@@ -92,30 +90,14 @@
         },
       });
 
-      // Đăng ký các mẫu preview với các Collection trong config.yml
-      CMS.registerPreviewTemplate("products_vi", ProductPreview);
-      CMS.registerPreviewTemplate("products_zh", ProductPreview);
-      CMS.registerPreviewTemplate("blog_vi", BlogPreview);
-      CMS.registerPreviewTemplate("blog_zh", BlogPreview);
+      window.CMS.registerPreviewTemplate("products_vi", ProductPreview);
+      window.CMS.registerPreviewTemplate("products_zh", ProductPreview);
+      window.CMS.registerPreviewTemplate("blog_vi", BlogPreview);
+      window.CMS.registerPreviewTemplate("blog_zh", BlogPreview);
     </script>
 
     <script is:inline>
-      // Kiểm tra nếu có token trong URL (mời hoặc đặt lại mật khẩu)
-      document.addEventListener("DOMContentLoaded", () => {
-        const hash = document.location.hash;
-        if (
-          hash &&
-          (hash.includes("invite_token") || hash.includes("recovery_token"))
-        ) {
-          // Kích hoạt widget Netlify Identity để hiện form đặt mật khẩu
-          const netlifyIdentity = window.netlifyIdentity;
-          if (netlifyIdentity) {
-            netlifyIdentity.open();
-          }
-        }
-      });
-
-      // Tự động đóng widget sau khi đăng nhập thành công
+      // XỬ LÝ IDENTITY & TOKEN
       if (window.netlifyIdentity) {
         window.netlifyIdentity.on("init", (user) => {
           if (!user) {
@@ -124,6 +106,12 @@
             });
           }
         });
+
+        // Ép mở widget nếu thấy token trong URL
+        const hash = document.location.hash;
+        if (hash.includes("invite_token") || hash.includes("recovery_token")) {
+          window.netlifyIdentity.open();
+        }
       }
     </script>
   </body>
