@@ -47,7 +47,7 @@ const categories = [
             data-cat={product.data.category}
           >
             <a href={`/san-pham/${product.slug}`}>
-              <div class="relative h-72 overflow-hidden bg-stone-100">
+              <div class="relative aspect-square overflow-hidden bg-stone-100">
                 <img
                   src={product.data.image}
                   alt={product.data.title}
@@ -82,13 +82,11 @@ const categories = [
 
   <script>
     const buttons = document.querySelectorAll(".filter-btn");
-    // Tìm dòng khai báo items và sửa thành:
     const items = document.querySelectorAll(
       ".product-item",
     ) as NodeListOf<HTMLElement>;
 
     function filterProducts(category: string) {
-      // 1. Đổi màu nút bấm
       buttons.forEach((btn) => {
         if (btn.getAttribute("data-category") === category) {
           btn.classList.add("bg-amber-700", "text-white", "border-amber-700");
@@ -103,12 +101,10 @@ const categories = [
         }
       });
 
-      // 2. Lọc sản phẩm
       items.forEach((item) => {
         const itemCat = item.getAttribute("data-cat");
         if (category === "Tất cả" || itemCat === category) {
           item.style.display = "block";
-          // Thêm hiệu ứng hiện ra mượt mà
           item.animate(
             [
               { opacity: 0, transform: "translateY(10px)" },
@@ -122,16 +118,13 @@ const categories = [
       });
     }
 
-    // Gán sự kiện click cho nút
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        // Sửa dòng 124-126 thành:
         const cat = btn.getAttribute("data-category") || "Tất cả";
         filterProducts(cat);
       });
     });
 
-    // Mặc định chọn nút "Tất cả" khi tải trang
     filterProducts("Tất cả");
   </script>
 </MainLayout>

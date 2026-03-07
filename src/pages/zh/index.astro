@@ -83,7 +83,7 @@ const featuredProducts = await getCollection("zh-products");
             featuredProducts.map((product) => (
               <div class="min-w-[calc(100%-1.5rem)] md:min-w-[calc(33.333%-1rem)] bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500">
                 <a href={`/zh/products/${product.slug}`} class="block">
-                  <div class="h-64 overflow-hidden">
+                  <div class="relative aspect-square overflow-hidden bg-stone-100">
                     <img
                       src={product.data.image}
                       alt={product.data.title}
@@ -251,10 +251,12 @@ const featuredProducts = await getCollection("zh-products");
       <div class="md:w-1/2 space-y-6 text-left">
         <h2 class="text-4xl font-serif font-bold text-stone-800 leading-tight">
           来自 <br /><span class="text-amber-700 underline underline-offset-8"
-            >燕屋基地的日志</span>
+            >燕屋基地的日志</span
+          >
         </h2>
         <p class="text-stone-600 leading-relaxed">
-          从哈池工厂的精细加工到每一份产品的交付，我们始终坚持透明化。每一盏燕窝都承载着我们的匠心与诚信。
+          从哈池工厂的精细加工到每一份产品的交付，
+          we始终坚持透明化。每一盏燕窝都承载着我们的匠心与诚信。
         </p>
         <a
           href="/zh/blog"

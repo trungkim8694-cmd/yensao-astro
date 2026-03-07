@@ -10,7 +10,7 @@ const categories = ["全部", "原味燕盏", "精制燕窝", "即食燕窝", "�
 <MainLayout title="燕窝产品目录" lang="zh">
   <section class="py-16 px-6 max-w-7xl mx-auto text-left">
     <h1 class="text-4xl font-serif font-bold text-center mb-12 text-stone-800">
-      优质产品系列/ Sản phẩm
+      优质产品系列 / Sản phẩm
     </h1>
 
     <div
@@ -37,7 +37,7 @@ const categories = ["全部", "原味燕盏", "精制燕窝", "即食燕窝", "�
             data-category={product.data.category}
           >
             <a href={`/zh/products/${product.slug}`}>
-              <div class="relative h-72 overflow-hidden bg-stone-100">
+              <div class="relative aspect-square overflow-hidden bg-stone-100">
                 <img
                   src={product.data.image}
                   alt={product.data.title}
@@ -48,7 +48,6 @@ const categories = ["全部", "原味燕盏", "精制燕窝", "即食燕窝", "�
                 </div>
               </div>
 
-              {/* PHẦN NỘI DUNG ĐÃ ĐƯỢC CHÈN SAO VÀO ĐÚNG VỊ TRÍ */}
               <div class="p-8">
                 <div class="flex items-center gap-1 text-amber-500 mb-2">
                   {Array.from({ length: 5 }).map((_, index) => (
