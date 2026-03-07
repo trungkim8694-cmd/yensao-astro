@@ -58,7 +58,7 @@ const categories = [
     const btns = document.querySelectorAll(".zh-blog-filter-btn");
     const items = document.querySelectorAll(".zh-blog-item");
 
-    function filter(cat) {
+    function filter(cat: string) {
       btns.forEach((b) => {
         const isSelected = b.getAttribute("data-category") === cat;
         b.classList.toggle("bg-amber-700", isSelected);
@@ -72,7 +72,7 @@ const categories = [
     }
     btns.forEach((btn) =>
       btn.addEventListener("click", () =>
-        filter(btn.getAttribute("data-category")),
+        filter(btn.getAttribute("data-category") || "全部"),
       ),
     );
     filter("全部");
