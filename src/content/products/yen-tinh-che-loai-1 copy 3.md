@@ -1,5 +1,5 @@
 ---
-title: Yến sào tinh chế loại 1 - 100g (Đất Tổ Phú Thọ)
+title: Yến sào tinh chế loại 100g
 category: Yến tinh chế
 price: 3.800.000đ
 weight: 100g
